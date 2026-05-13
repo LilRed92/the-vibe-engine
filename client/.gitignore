@@ -133,3 +133,4 @@ dist
 # User
 .DS_Store
 .env
+template_files/
