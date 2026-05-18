@@ -5,7 +5,7 @@ export async function loader({ params }) {
   try {
     const accessToken = await getAccessToken();
     const response = await fetch(
-      `https://api.spotify.com/v1/playlists/$${params.id}/tracks`,
+      `https://api.spotify.com/v1/playlists/${params.id}/tracks`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
