@@ -1,13 +1,42 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
+import Home from "./components/Home.jsx";
+import Featured, { loader as featuredLoader } from "./components/Featured.jsx";
+import Genres, { loader as genresLoader } from "./components/Genres.jsx";
+import GenreTracks, {
+  loader as genreTracksLoader,
+} from "./components/GenreTracks.jsx";
+import PlaylistTracks, {
+  loader as playlistTracksLoader,
+} from "./components/PlaylistTracks.jsx";
 import "./index.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "featured", element: <Featured />, loader: featuredLoader },
+      { path: "genres", element: <Genres />, loader: genresLoader },
+      {
+        path: "featured/:id",
+        element: <PlaylistTracks />,
+        loader: playlistTracksLoader,
+      },
+      {
+        path: "genres/:id",
+        element: <GenreTracks />,
+        loader: genreTracksLoader,
+      },
+    ],
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <RouterProvider router={router} />
   </React.StrictMode>,
 );

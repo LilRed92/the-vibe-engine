@@ -1,40 +1,35 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
+import { getAccessToken } from "../auth";
 
-export default function Genres({ auth }) {
-  const [genres, setGenres] = useState([]);
+export async function loader() {
+  try {
+    const accessToken = await getAccessToken();
+    const response = await fetch(
+      "https://api.spotify.com/v1/recommendations/available-genre-seeds",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
+    );
 
-  useEffect(() => {
-    async function fetchGenres() {
-      try {
-        const response = await fetch(
-          "https://api.spotify.com/v1/recommendations/available-genre-seeds",
-          {
-            headers: { Authorization: `Bearer ${auth}` },
-          },
-        );
-        const data = await response.json();
-        setGenres(data.genres.slice(0, 30));
-      } catch (error) {
-        console.error(error);
-      }
-    }
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-    if (auth) {
-      fetchGenres();
-    }
-  }, [auth]);
+    const data = await response.json();
+    return data.genres.slice(0, 30);
+  } catch (err) {
+    console.error("Error fetching auth:", err);
+    return [];
+  }
+}
+
+export default function Genres() {
+  const genres = useLoaderData();
 
   return (
     <div className="genres">
       <h2>Select a Genre</h2>
-      <div className="masonry-grid">
+      <div className="grid">
         {genres.map((genre) => (
-          <Link
-            to={`/genres/${genre}`}
-            key={genre}
-            className="grid-card genre-card"
-          >
+          <Link to={`/genres/${genre}`} key={genre} className="card genre-card">
             <div className="card-info genre-info">
               <h3>{genre}</h3>
             </div>

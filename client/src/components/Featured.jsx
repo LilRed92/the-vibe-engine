@@ -1,39 +1,38 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
+import { getAccessToken } from "../auth";
 
-export default function Featured({ auth }) {
-  const [featured, setFeatured] = useState([]);
+export async function loader() {
+  try {
+    const accessToken = await getAccessToken();
+    const response = await fetch(
+      "https://api.spotify.com/v1/browse/featured-playlists",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
+    );
 
-  useEffect(() => {
-    async function fetchFeaturedPlaylists() {
-      try {
-        const response = await fetch(
-          "https://api.spotify.com/v1/browse/featured-playlists",
-          {
-            headers: { Authorization: `Bearer ${auth}` },
-          },
-        );
-        const data = await response.json();
-        setFeatured(data.playlists.items);
-      } catch (error) {
-        console.error(error);
-      }
-    }
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-    if (auth) {
-      fetchFeaturedPlaylists();
-    }
-  }, [auth]);
+    const data = await response.json();
+    return data.playlists.items;
+  } catch (err) {
+    console.error("Error fetching auth:", err);
+    return [];
+  }
+}
+
+export default function Featured() {
+  const featured = useLoaderData();
 
   return (
-    <div className="featured-view">
+    <div className="featured">
       <h2>Featured Playlists</h2>
-      <div className="masonry-grid">
+      <div className="grid">
         {featured.map((playlist) => (
           <Link
             to={`/featured/${playlist.id}`}
             key={playlist.id}
-            className="grid-card"
+            className="card"
           >
             <img src={playlist.images[0]?.url} alt={playlist.name} />
             <div className="card-info">
