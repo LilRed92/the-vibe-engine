@@ -146,3 +146,4 @@ commitlint.config.js
 .ai-commit-rules.txt
 planning_setup/
 server/
+generate-readme.js
