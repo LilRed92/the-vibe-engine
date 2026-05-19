@@ -5,10 +5,10 @@ export default function Home() {
     <div className="home">
       <h2>Welcome to The Vibe Engine</h2>
       <div className="actionBtns">
-        <Link to="/featured" onClick={handleFeatured} className="mainBtn">
-          View Featured Playlists
+        <Link to="/featured" className="mainBtn">
+          View Featured Albums
         </Link>
-        <Link to="/genres" onClick={handleGenres} className="mainBtn">
+        <Link to="/genres" className="mainBtn">
           Pick a Genre
         </Link>
       </div>

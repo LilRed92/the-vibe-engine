@@ -1,24 +1,39 @@
 import { useLoaderData, Link } from "react-router-dom";
-import { getAccessToken } from "../auth";
 
+// Providing a static list of popular genres as a workaround to Spotify restricting the /recommendations/available-genre-seeds endpoint
 export async function loader() {
-  try {
-    const accessToken = await getAccessToken();
-    const response = await fetch(
-      "https://api.spotify.com/v1/recommendations/available-genre-seeds",
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      },
-    );
-
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-    const data = await response.json();
-    return data.genres.slice(0, 30);
-  } catch (err) {
-    console.error("Error fetching auth:", err);
-    return [];
-  }
+  return [
+    "acoustic",
+    "afrobeat",
+    "alt-rock",
+    "alternative",
+    "ambient",
+    "anime",
+    "black-metal",
+    "bluegrass",
+    "blues",
+    "bossanova",
+    "brazil",
+    "breakbeat",
+    "british",
+    "cantopop",
+    "chicago-house",
+    "children",
+    "chill",
+    "classical",
+    "club",
+    "comedy",
+    "country",
+    "dance",
+    "dancehall",
+    "death-metal",
+    "deep-house",
+    "detroit-techno",
+    "disco",
+    "disney",
+    "drum-and-bass",
+    "dub",
+  ];
 }
 
 export default function Genres() {

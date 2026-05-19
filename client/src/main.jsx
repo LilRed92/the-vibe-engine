@@ -8,9 +8,9 @@ import Genres, { loader as genresLoader } from "./components/Genres.jsx";
 import GenreTracks, {
   loader as genreTracksLoader,
 } from "./components/GenreTracks.jsx";
-import PlaylistTracks, {
-  loader as playlistTracksLoader,
-} from "./components/PlaylistTracks.jsx";
+import AlbumTracks, {
+  loader as albumTracksLoader,
+} from "./components/AlbumTracks.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -23,8 +23,8 @@ const router = createBrowserRouter([
       { path: "genres", element: <Genres />, loader: genresLoader },
       {
         path: "featured/:id",
-        element: <PlaylistTracks />,
-        loader: playlistTracksLoader,
+        element: <AlbumTracks />,
+        loader: albumTracksLoader,
       },
       {
         path: "genres/:id",

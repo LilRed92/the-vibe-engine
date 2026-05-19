@@ -5,18 +5,24 @@ export async function loader({ params }) {
   try {
     const accessToken = await getAccessToken();
     const response = await fetch(
-      `https://api.spotify.com/v1/recommendations?seed_genres=${params.id}&limit=20`,
+      // Workaround for Spotify restricting the /recommendations endpoint and reducing the max limit to 10.
+      `https://api.spotify.com/v1/search?q=genre:${encodeURIComponent(params.id)}&type=track&limit=10`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
     );
 
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        `Spotify Error: ${errorData.error?.message || response.status}`,
+      );
+    }
 
     const data = await response.json();
-    return { tracks: data.tracks || [], id: params.id };
+    return { tracks: data.tracks?.items || [], id: params.id };
   } catch (err) {
-    console.error("Error fetching auth:", err);
+    console.error("Error fetching genre tracks:", err);
     return { tracks: [], id: params.id };
   }
 }
