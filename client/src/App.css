@@ -8,6 +8,7 @@
 .App {
   text-align: center;
   font-family: "Helvetica Neue", "Lato", sans-serif;
+  font-size: 1.15rem;
 }
 
 .main {
@@ -24,6 +25,7 @@
 
 .app-header h1 {
   margin: 0 0 10px 0;
+  font-size: 2.8rem;
   color: var(--white);
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -33,12 +35,13 @@
 .nav-link {
   color: var(--neon-green);
   text-decoration: none;
+  font-size: 1.3rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
   transition:
-    color 0.3s ease,
-    text-shadow 0.3s ease;
+    color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    text-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-link:hover {
@@ -51,7 +54,7 @@
 }
 
 .home h2 {
-  font-size: 2.5rem;
+  font-size: 3.2rem;
   margin-bottom: 40px;
 }
 
@@ -66,20 +69,28 @@
   color: var(--white);
   padding: 15px 30px;
   text-decoration: none;
+  font-size: 1.2rem;
   border-radius: 8px;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
   border: 2px solid transparent;
-  transition: all 0.3s ease;
+  box-shadow:
+    0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mainBtn:hover {
   background-color: var(--black);
   color: var(--neon-green);
   border-color: var(--neon-green);
-  box-shadow: 0 0 20px rgba(36, 255, 51, 0.4);
-  transform: translateY(-3px);
+  box-shadow:
+    0 5px 5px -3px rgba(36, 255, 51, 0.2),
+    0 8px 10px 1px rgba(36, 255, 51, 0.14),
+    0 3px 14px 2px rgba(36, 255, 51, 0.12);
+  transform: translateY(-2px);
 }
 
 .featured,
@@ -91,7 +102,8 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-auto-rows: 15px;
+  grid-auto-rows: 250px;
+  grid-auto-flow: dense;
   gap: 25px;
   padding: 20px 0;
   max-width: 1200px;
@@ -99,39 +111,50 @@
 }
 
 .card {
-  grid-row-end: span 22;
+  grid-column-end: span 1;
+  grid-row-end: span 1;
   background: linear-gradient(180deg, #111111 0%, var(--black) 100%);
   border-radius: 12px;
   overflow: hidden;
   text-decoration: none;
   color: var(--white);
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-  border: 1px solid #222;
+  border: 1px solid transparent;
+  box-shadow:
+    0 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
 }
 
 .card:nth-child(even) {
-  grid-row-end: span 24;
+  grid-column-end: span 2;
+  grid-row-end: span 2;
 }
 
 .card:nth-child(3n) {
-  grid-row-end: span 20;
+  grid-column-end: span 1;
+  grid-row-end: span 1;
 }
 
 .card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-4px);
   border-color: var(--deep-purple);
-  box-shadow: 0 10px 30px rgba(82, 0, 255, 0.4);
+  box-shadow:
+    0 5px 5px -3px rgba(82, 0, 255, 0.2),
+    0 8px 10px 1px rgba(82, 0, 255, 0.14),
+    0 3px 14px 2px rgba(82, 0, 255, 0.12);
 }
 
 .card img {
   width: 100%;
-  height: 200px;
+  height: 60%;
   object-fit: cover;
+  flex-shrink: 0;
   border-bottom: 2px solid var(--deep-purple);
 }
 
@@ -140,24 +163,23 @@
   text-align: left;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   flex-grow: 1;
 }
 
 .card-info h3 {
   margin: 0 0 10px 0;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   color: var(--white);
 }
 
 .card-info p {
   margin: 0;
-  font-size: 0.9rem;
   color: #a0a0a0;
   line-height: 1.4;
 }
 
 .genre-card {
-  grid-row-end: span 10 !important;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -168,12 +190,17 @@
 .genre-card:hover {
   background: linear-gradient(135deg, var(--neon-green), var(--black));
   border-color: var(--neon-green);
-  box-shadow: 0 8px 25px rgba(36, 255, 51, 0.3);
+  box-shadow:
+    0 5px 5px -3px rgba(36, 255, 51, 0.2),
+    0 8px 10px 1px rgba(36, 255, 51, 0.14),
+    0 3px 14px 2px rgba(36, 255, 51, 0.12);
 }
 
 .genre-info {
   text-transform: capitalize;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
+  text-align: center;
+  align-items: center;
   font-weight: 800;
   letter-spacing: 1px;
 }
@@ -181,7 +208,7 @@
 .title {
   text-transform: capitalize;
   margin-bottom: 20px;
-  font-size: 2rem;
+  font-size: 2.8rem;
   color: var(--white);
   text-shadow: 0 0 10px rgba(82, 0, 255, 0.8);
 }
@@ -202,15 +229,25 @@
   border-radius: 8px;
   gap: 20px;
   border-left: 4px solid transparent;
+  box-shadow:
+    0 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
   transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
+    background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .row:hover {
   background: #1a1a1a;
-  transform: translateX(5px);
+  transform: translateY(-2px);
   border-left-color: var(--neon-green);
+  box-shadow:
+    0 3px 3px -2px rgba(36, 255, 51, 0.2),
+    0 3px 4px 0 rgba(36, 255, 51, 0.14),
+    0 1px 8px 0 rgba(36, 255, 51, 0.12);
 }
 
 .row img {
@@ -226,12 +263,12 @@
 
 .track-info h3 {
   margin: 0 0 5px 0;
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: var(--white);
 }
 
 .track-info p {
   margin: 0;
   color: #a0a0a0;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 }
