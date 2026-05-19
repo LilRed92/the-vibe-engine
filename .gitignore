@@ -147,3 +147,4 @@ commitlint.config.js
 planning_setup/
 server/
 generate-readme.js
+knip.json

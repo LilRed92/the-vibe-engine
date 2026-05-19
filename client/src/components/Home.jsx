@@ -1,14 +1,6 @@
 import { Link } from "react-router-dom";
 
 export default function Home() {
-  const fetchFeatured = async () => {};
-
-  const fetchGenres = async () => {};
-
-  const handleFeatured = () => {};
-
-  const handleGenres = () => {};
-
   return (
     <div className="home">
       <h2>Welcome to The Vibe Engine</h2>
