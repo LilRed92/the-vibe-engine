@@ -4,10 +4,11 @@ import { getAccessToken } from "../auth";
 export async function loader() {
   try {
     const accessToken = await getAccessToken();
+    const currentYear = new Date().getFullYear();
 
-    // After many blocks and issues due to Spotify's changes to their APIs, necessary credentials, and errors throughout. I decided to change my original idea to featured albums instead of playlists. Maybe future updates can include playlists, but for now it is out of scope for this project.
+    // After many blocks and issues due to Spotify's changes to their APIs, necessary credentials, and errors throughout. I decided to change my original idea to featured top global albums of the year instead of playlists. Maybe future updates can include playlists, but for now it is out of scope for this project.
     const response = await fetch(
-      "https://api.spotify.com/v1/search?q=vibes&type=album&limit=10",
+      `https://api.spotify.com/v1/search?q=year:${currentYear}&type=album&limit=10`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
